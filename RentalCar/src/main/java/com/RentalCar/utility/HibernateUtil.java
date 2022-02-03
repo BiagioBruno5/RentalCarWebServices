@@ -1,17 +1,20 @@
 package com.RentalCar.utility;
-/*
-import com.mysql.cj.xdevapi.SessionFactory;
+
+import com.RentalCar.model.bean.Prenotazioni;
+import com.RentalCar.model.bean.Utente;
+import com.RentalCar.model.bean.Veicolo;
+import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
+import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Component;
 
-import javax.imageio.spi.ServiceRegistry;
 import java.util.Properties;
 
 @Component
 public class HibernateUtil {
-    private static SessionFactory sessionFactory;
+    private static org.hibernate.SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
@@ -32,9 +35,9 @@ public class HibernateUtil {
 
                 configuration.setProperties(settings);
 
-                //configuration.addAnnotatedClass(Prenotazioni.class);
-                //configuration.addAnnotatedClass(Utente.class);
-                //configuration.addAnnotatedClass(Veicolo.class);
+                configuration.addAnnotatedClass(Prenotazioni.class);
+                configuration.addAnnotatedClass(Utente.class);
+                configuration.addAnnotatedClass(Veicolo.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
@@ -46,4 +49,4 @@ public class HibernateUtil {
         }
         return sessionFactory;
     }
-}*/
+}
