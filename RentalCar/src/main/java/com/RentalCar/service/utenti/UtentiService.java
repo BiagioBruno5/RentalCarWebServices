@@ -13,7 +13,7 @@ public interface UtentiService {
 
     public Boolean modificationUser(Utente customer);
 
-    public Utente getUserById(int id);
+    public UtentiDto getUserById(int id);
 
     public List<UtentiDto> getUser();
 

@@ -6,12 +6,21 @@ public class UtentiDto {
 
     public UtentiDto(){}
 
-    public UtentiDto(int id, String nome, String cognome, Date dataNascita, Boolean isSuperUser) {
+    public UtentiDto(int id, String nome, String cognome, Date dataNascita, Boolean isSuperUser, String pwd) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
         this.isSuperUser = isSuperUser;
+        this.password = pwd;
+    }
+
+    public UtentiDto(String nome, String cognome, Date dataNascita, Boolean isSuperUser, String pwd) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.dataNascita = dataNascita;
+        this.isSuperUser = isSuperUser;
+        this.password = pwd;
     }
 
     private int id;
@@ -19,6 +28,7 @@ public class UtentiDto {
     private String cognome;
     private Date dataNascita;
     private Boolean isSuperUser;
+    private String password;
 
     public int getId() {
         return id;
@@ -60,14 +70,11 @@ public class UtentiDto {
         isSuperUser = superUser;
     }
 
-    @Override
-    public String toString() {
-        return "UtentiDto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", dataNascita=" + dataNascita +
-                ", isSuperUser=" + isSuperUser +
-                '}';
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

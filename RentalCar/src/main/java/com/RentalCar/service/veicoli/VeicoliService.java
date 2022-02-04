@@ -15,6 +15,6 @@ public interface VeicoliService {
 
     List<VeicoloDto> getListaVeicoli();
 
-    Veicolo getVeicoloByTelaio(int id);
+    VeicoloDto getVeicoloByTelaio(int id);
 
 }

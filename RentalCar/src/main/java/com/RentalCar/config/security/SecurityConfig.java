@@ -70,7 +70,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private static final String[] CUSTOMER_MATCHER = {"/api/hello/**"};
-    private static final String[] ADMIN_MATCHER = {"/api/helloMaria/**"};
+    private static final String[] ADMIN_MATCHER = {
+            "/api/utenti/**",
+            "/api/utenti/lista/**",
+            "/api/utenti/cliente/**",
+            "/api/utenti/elimina/**",
+            "/api/utenti/inserimento/**"
+    };
 
 
     @Override
@@ -97,6 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .and();
 
+        /*
         // Set permissions on endpoints
         httpSecurity.authorizeRequests()
                 // Our public endpoints
@@ -105,6 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(CUSTOMER_MATCHER).access("hasRole('CUSTOMER')")
                 // Our private endpoints
                 .anyRequest().authenticated();
+                */
 
         // Add JWT token filter
         httpSecurity.addFilterBefore(

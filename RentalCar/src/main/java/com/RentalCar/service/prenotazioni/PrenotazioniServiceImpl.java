@@ -7,11 +7,14 @@ import com.RentalCar.model.bean.Utente;
 import com.RentalCar.model.dao.prenotazioniDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class PrenotazioniServiceImpl implements PrenotazioniService{
 
     @Autowired
@@ -33,8 +36,19 @@ public class PrenotazioniServiceImpl implements PrenotazioniService{
     }
 
     @Override
-    public Prenotazioni getPrenotazioneByNumeroPrenotazione(int id) {
-        return pren.getPrenotazioneByNumeroPrenotazione(id);
+    public PrenotazioniDto getPrenotazioneByNumeroPrenotazione(int id) {
+        Prenotazioni prenotazione = pren.getPrenotazioneByNumeroPrenotazione(id);
+
+        PrenotazioniDto prenotazioniDto = new PrenotazioniDto(
+                prenotazione.getNumeroPrenotazione(),
+                prenotazione.getDataInizio(),
+                prenotazione.getDataFine(),
+                prenotazione.getApprovazione(),
+                prenotazione.getUtente().getId(),
+                prenotazione.getVeicolo().getNumeroTelaio()
+        );
+
+        return prenotazioniDto;
     }
 
     @Override
@@ -49,7 +63,9 @@ public class PrenotazioniServiceImpl implements PrenotazioniService{
                     pren.getNumeroPrenotazione(),
                     pren.getDataInizio(),
                     pren.getDataFine(),
-                    pren.getApprovazione()
+                    pren.getApprovazione(),
+                    pren.getUtente().getId(),
+                    pren.getVeicolo().getNumeroTelaio()
             ));
         }
 
@@ -67,7 +83,9 @@ public class PrenotazioniServiceImpl implements PrenotazioniService{
                     pren.getNumeroPrenotazione(),
                     pren.getDataInizio(),
                     pren.getDataFine(),
-                    pren.getApprovazione()
+                    pren.getApprovazione(),
+                    pren.getUtente().getId(),
+                    pren.getVeicolo().getNumeroTelaio()
             ));
         }
 

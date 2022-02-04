@@ -111,17 +111,4 @@ public class Utente {
         this.password = password;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", dataNascita=" + dataNascita +
-                ", isSuperUser=" + isSuperUser +
-                ", prenotazioni=" + prenotazioni +
-                '}';
-    }
 }

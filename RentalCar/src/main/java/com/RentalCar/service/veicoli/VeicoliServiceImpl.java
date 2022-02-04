@@ -51,7 +51,16 @@ public class VeicoliServiceImpl implements VeicoliService{
     }
 
     @Override
-    public Veicolo getVeicoloByTelaio(int id) {
-        return veic.getVeicoloByTelaio(id);
+    public VeicoloDto getVeicoloByTelaio(int id) {
+        Veicolo veicolo = veic.getVeicoloByTelaio(id);
+
+        VeicoloDto veicoloDto = new VeicoloDto(
+                veicolo.getNumeroTelaio(),
+                veicolo.getTarga(),
+                veicolo.getCasaCostruttrice(),
+                veicolo.getModello(),
+                veicolo.getTipologia());
+
+        return veicoloDto;
     }
 }

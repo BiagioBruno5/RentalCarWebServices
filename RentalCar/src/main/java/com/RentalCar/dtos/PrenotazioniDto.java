@@ -4,16 +4,20 @@ import java.util.Date;
 
 public class PrenotazioniDto {
 
-    public PrenotazioniDto(int numeroPrenotazione, Date dataInizio, Date dataFine, Boolean approvazione) {
+    public PrenotazioniDto(int numeroPrenotazione, Date dataInizio, Date dataFine, Boolean approvazione, int idUtente, int idVeicolo) {
         this.numeroPrenotazione = numeroPrenotazione;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.approvazione = approvazione;
+        this.idUtente = idUtente;
+        this.idVeicolo = idVeicolo;
     }
 
     public PrenotazioniDto() {
     }
 
+    private int idVeicolo;
+    private int idUtente;
     private int numeroPrenotazione;
     private Date dataInizio;
     private Date dataFine;
@@ -49,5 +53,21 @@ public class PrenotazioniDto {
 
     public void setApprovazione(Boolean approvazione) {
         this.approvazione = approvazione;
+    }
+
+    public int getIdVeicolo() {
+        return idVeicolo;
+    }
+
+    public void setIdVeicolo(int idVeicolo) {
+        this.idVeicolo = idVeicolo;
+    }
+
+    public int getIdUtente() {
+        return idUtente;
+    }
+
+    public void setIdUtente(int idUtente) {
+        this.idUtente = idUtente;
     }
 }

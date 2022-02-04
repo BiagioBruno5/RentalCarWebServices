@@ -13,7 +13,7 @@ public interface PrenotazioniService {
 
     Boolean modificationPrenotazioni(Prenotazioni prenotazioni);
 
-    Prenotazioni getPrenotazioneByNumeroPrenotazione(int id);
+    PrenotazioniDto getPrenotazioneByNumeroPrenotazione(int id);
 
     List<PrenotazioniDto> getListaPrenotazioni();
 
