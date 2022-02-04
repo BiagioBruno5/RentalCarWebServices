@@ -17,7 +17,7 @@ public interface UtentiService {
 
     public List<UtentiDto> getUser();
 
-    public Utente getUserByName(String nome);
+    public UtentiDto getUserByName(String nome);
 
-    public Utente getUserForLogin(String nome, String password);
+    public UtentiDto getUserForLogin(String nome, String password);
 }

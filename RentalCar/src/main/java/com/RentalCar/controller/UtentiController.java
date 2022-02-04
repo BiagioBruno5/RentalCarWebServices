@@ -1,6 +1,7 @@
 package com.RentalCar.controller;
 
 import com.RentalCar.dtos.UtentiDto;
+import com.RentalCar.dtos.loginDataDto;
 import com.RentalCar.model.bean.Utente;
 import com.RentalCar.model.bean.Veicolo;
 import com.RentalCar.model.dao.userDAO;
@@ -48,6 +49,25 @@ public class UtentiController {
         System.out.println("**** OTTENIAMO IL SINGOLO UTENTE ****");
 
         UtentiDto utente = userDao.getUserById(id);
+
+        if(utente == null){
+            String messaggioDiErrore = "Lista utenti non trovata";
+            System.out.println(messaggioDiErrore);
+
+            return new ResponseEntity<UtentiDto>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<UtentiDto>(utente, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/login", produces = "application/json")
+    public @ResponseBody ResponseEntity<UtentiDto> loginCliente(@RequestBody loginDataDto utenteDto) {
+
+        System.out.println("**** OTTENIAMO IL SINGOLO UTENTE ****");
+
+        //UtentiDto utente = userDao.getUserForLogin(utenteDto.getUsername(), utenteDto.getPassword());
+        UtentiDto utente = userDao.getUserByName(utenteDto.getUsername());
 
         if(utente == null){
             String messaggioDiErrore = "Lista utenti non trovata";

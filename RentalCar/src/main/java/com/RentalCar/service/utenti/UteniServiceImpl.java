@@ -48,6 +48,20 @@ public class UteniServiceImpl implements UtentiService {
     }
 
     @Override
+    public UtentiDto getUserForLogin(String nome, String password) {
+        Utente utente = user.getUserForLogin(nome, password);
+
+        UtentiDto utenteDto = new UtentiDto(utente.getId(),
+                utente.getNome(),
+                utente.getCognome(),
+                utente.getDataNascita(),
+                utente.getIsSuperUser(),
+                utente.getPassword());
+
+        return utenteDto;
+    }
+
+    @Override
     public List<UtentiDto> getUser() {
         List<Utente> utenti = user.getUser();
 
@@ -66,22 +80,17 @@ public class UteniServiceImpl implements UtentiService {
     }
 
     @Override
-    public Utente getUserByName(String nome) {
-        return user.getUserByName(nome);
-    }
+    public UtentiDto getUserByName(String nome) {
 
-    @Override
-    public Utente getUserForLogin(String nome, String password) {
-        return user.getUserForLogin(nome, password);
+        Utente utente = user.getUserByName(nome);
+
+        UtentiDto utenteDto = new UtentiDto(utente.getId(),
+                utente.getNome(),
+                utente.getCognome(),
+                utente.getDataNascita(),
+                utente.getIsSuperUser(),
+                utente.getPassword());
+
+        return utenteDto;
     }
 }
-
-/*
-@Autowired
-private  ModelMapper modelMapper;
-
-List<UtentiDto> utentiDto = utenti
-                .stream()
-                .map(source -> modelMapper.map(source, UtentiDto.class))
-                .collect(Collectors.toList());
-*/
