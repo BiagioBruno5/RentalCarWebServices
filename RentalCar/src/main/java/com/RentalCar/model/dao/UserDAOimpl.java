@@ -108,9 +108,10 @@ public class UserDAOimpl implements com.RentalCar.model.dao.userDAO {
     @Override
     public Utente getUserForLogin(String nome, String password) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return (Utente) session.createQuery("select u from Utente u where u.nome =:x and u.password =:y").setParameter("x", nome)
+            Utente user = (Utente) session.createQuery("select u from Utente u where u.nome =:x and u.password =:y").setParameter("x", nome)
                     .setParameter("y", password)
                     .uniqueResult();
+            return user;
         }
         catch (Exception e){
             e.printStackTrace();

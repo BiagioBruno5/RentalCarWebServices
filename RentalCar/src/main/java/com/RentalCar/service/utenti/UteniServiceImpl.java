@@ -62,6 +62,21 @@ public class UteniServiceImpl implements UtentiService {
     }
 
     @Override
+    public UtentiDto getUserByName(String nome) {
+
+        Utente utente = user.getUserByName(nome);
+
+        UtentiDto utenteDto = new UtentiDto(utente.getId(),
+                utente.getNome(),
+                utente.getCognome(),
+                utente.getDataNascita(),
+                utente.getIsSuperUser(),
+                utente.getPassword());
+
+        return utenteDto;
+    }
+
+    @Override
     public List<UtentiDto> getUser() {
         List<Utente> utenti = user.getUser();
 
@@ -77,20 +92,5 @@ public class UteniServiceImpl implements UtentiService {
         }
 
         return utentiDto;
-    }
-
-    @Override
-    public UtentiDto getUserByName(String nome) {
-
-        Utente utente = user.getUserByName(nome);
-
-        UtentiDto utenteDto = new UtentiDto(utente.getId(),
-                utente.getNome(),
-                utente.getCognome(),
-                utente.getDataNascita(),
-                utente.getIsSuperUser(),
-                utente.getPassword());
-
-        return utenteDto;
     }
 }

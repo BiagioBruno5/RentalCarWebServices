@@ -1,4 +1,5 @@
 package com.RentalCar.controller;
+import com.RentalCar.dtos.GetClientDataDto;
 import com.RentalCar.dtos.PrenotazioniDto;
 import com.RentalCar.dtos.UtentiDto;
 import com.RentalCar.model.bean.Prenotazioni;
@@ -51,12 +52,12 @@ public class PrenotazioniController {
     }
 
 
-    @GetMapping(value = "/prenotazione/{id}", produces = "application/json")
-    public @ResponseBody ResponseEntity<List<PrenotazioniDto>> singolaPrenotazione(@PathVariable("id") int id){
+    @PostMapping(value = "/prenotazione", produces = "application/json")
+    public @ResponseBody ResponseEntity<List<PrenotazioniDto>> singolaPrenotazione(@RequestBody GetClientDataDto idJson){
 
         System.out.println("**** OTTENIAMO LA PRENOTAZIONE ****");
 
-        List<PrenotazioniDto> prenotazioni = prenotazioniService.getListaPrenotazioniById(id);
+        List<PrenotazioniDto> prenotazioni = prenotazioniService.getListaPrenotazioniById(idJson.getId());
 
         if(prenotazioni == null){
             String messaggioDiErrore = "Prenotazione non trovata";
@@ -69,12 +70,12 @@ public class PrenotazioniController {
         }
     }
 
-    @GetMapping(value = "/prenotazioneByNumeroPrenotazione/{id}", produces = "application/json")
-    public @ResponseBody ResponseEntity<PrenotazioniDto> singolaPrenotazioneByNumeroPrenotazione(@PathVariable("id") int id){
+    @PostMapping(value = "/prenotazioneByNumeroPrenotazione", produces = "application/json")
+    public @ResponseBody ResponseEntity<PrenotazioniDto> singolaPrenotazioneByNumeroPrenotazione(@RequestBody PrenotazioniDto prenotazioniDto){
 
         System.out.println("**** OTTENIAMO LA PRENOTAZIONE ****");
 
-        PrenotazioniDto prenotazione = prenotazioniService.getPrenotazioneByNumeroPrenotazione(id);
+        PrenotazioniDto prenotazione = prenotazioniService.getPrenotazioneByNumeroPrenotazione(prenotazioniDto.getNumeroPrenotazione());
 
         if(prenotazione == null){
             String messaggioDiErrore = "Prenotazione non trovata";
@@ -88,12 +89,11 @@ public class PrenotazioniController {
     }
 
 
-    @GetMapping(value = "/elimina/{id}", produces = "application/json")
-    public @ResponseBody ResponseEntity<List<PrenotazioniDto>> eliminaPrenotazioneTramiteId(@PathVariable("id") int id) {
-
+    @PostMapping(value = "/elimina", produces = "application/json")
+    public @ResponseBody ResponseEntity<List<PrenotazioniDto>> eliminaPrenotazioneTramiteId(@RequestBody PrenotazioniDto prenotazioniDto) {
         System.out.println("**** ELIMINAZIONE UTENTE TRAMITE ID ****");
 
-        prenotazioniService.removePrenotazioniWithId(id);
+        prenotazioniService.removePrenotazioniWithId(prenotazioniDto.getNumeroPrenotazione());
 
         System.out.println("**** OTTENIAMO LA LISTA DELLE PRENOTAZIONI ****");
 
@@ -124,6 +124,37 @@ public class PrenotazioniController {
         prenotazione.setApprovazione(prenotazioniDto.getApprovazione());
 
         prenotazioniService.savePrenotazioni(prenotazione);
+
+        System.out.println("**** OTTENIAMO LA LISTA DELLE PRENOTAZIONI ****");
+
+        List<PrenotazioniDto> prenotazioni = prenotazioniService.getListaPrenotazioni();
+
+        if(prenotazioni == null){
+            String messaggioDiErrore = "Lista prenotazioni non trovata";
+            System.out.println(messaggioDiErrore);
+
+            return new ResponseEntity<List<PrenotazioniDto>>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<List<PrenotazioniDto>>(prenotazioni, HttpStatus.OK);
+        }
+    }
+
+
+    @PostMapping(value = "/modifica", produces = "application/json")
+    public @ResponseBody ResponseEntity<List<PrenotazioniDto>> modificaPrenotazione(@RequestBody PrenotazioniDto prenotazioniDto) {
+        System.out.println("**** MODIFICA PRENOTAZIONE ****");
+
+        Prenotazioni prenotazione = prenotazioniDao.getPrenotazioneByNumeroPrenotazione(prenotazioniDto.getNumeroPrenotazione());
+
+        prenotazione.setUtente(utentiDAO.getUserById(prenotazioniDto.getIdUtente()));
+        prenotazione.setVeicolo(veicoloDao.getVeicoloByTelaio(prenotazioniDto.getIdVeicolo()));
+        prenotazione.setNumeroPrenotazione(prenotazioniDto.getNumeroPrenotazione());
+        prenotazione.setDataInizio(prenotazioniDto.getDataInizio());
+        prenotazione.setDataFine(prenotazioniDto.getDataFine());
+        prenotazione.setApprovazione(prenotazioniDto.getApprovazione());
+
+        prenotazioniDao.modificationPrenotazioni(prenotazione);
 
         System.out.println("**** OTTENIAMO LA LISTA DELLE PRENOTAZIONI ****");
 
