@@ -69,13 +69,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    private static final String[] CUSTOMER_MATCHER = {"/api/hello/**"};
+    private static final String[] CUSTOMER_MATCHER = {
+            "/api/utenti/**",
+            "/api/utenti/cliente/**",
+            "/api/utenti/modifica/**",
+            "/api/utenti/login/**",
+            "/api/veicoli/**",
+            "/api/veicoli/lista/**",
+            "/api/veicoli/veicolo/**",
+            "/api/prenotazioni/**",
+            "/api/prenotazioni/**",
+            "/api/prenotazioni/prenotazione/**",
+            "/api/prenotazioni/prenotazioneByNumeroPrenotazione/**",
+            "/api/prenotazioni/elimina/**",
+            "/api/prenotazioni/inserimento/**",
+            "/api/prenotazioni/modifica/**",
+    };
     private static final String[] ADMIN_MATCHER = {
             "/api/utenti/**",
             "/api/utenti/lista/**",
             "/api/utenti/cliente/**",
             "/api/utenti/elimina/**",
-            "/api/utenti/inserimento/**"
+            "/api/utenti/inserimento/**",
+            "/api/utenti/modifica/**",
+            "/api/utenti/login/**",
+            "/api/veicoli/**",
+            "/api/veicoli/lista/**",
+            "/api/veicoli/veicolo/**",
+            "/api/veicoli/elimina/**",
+            "/api/veicoli/inserimento/**",
+            "/api/veicoli/modifica/**",
+            "/api/prenotazioni/**",
+            "/api/prenotazioni/lista/**",
+            "/api/prenotazioni/prenotazione/**",
+            "/api/prenotazioni/prenotazioneByNumeroPrenotazione/**",
+            "/api/prenotazioni/elimina/**",
+            "/api/prenotazioni/inserimento/**",
+            "/api/prenotazioni/modifica/**",
     };
 
 
@@ -103,30 +133,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .and();
 
-        /*
-        // Set permissions on endpoints
+
+       // Set permissions on endpoints
         httpSecurity.authorizeRequests()
                 // Our public endpoints
-                .antMatchers("/api/public/**").permitAll()
-                .antMatchers(ADMIN_MATCHER).access("hasRole('ADMIN')")
-                .antMatchers(CUSTOMER_MATCHER).access("hasRole('CUSTOMER')")
+                .antMatchers("/public/api/auth").permitAll()
+
                 // Our private endpoints
                 .anyRequest().authenticated();
-                */
+
 
         // Add JWT token filter
         httpSecurity.addFilterBefore(
                 jwtAuthenticationTokenFilter,
                 UsernamePasswordAuthenticationFilter.class
         );
-    }
-
-    @Override
-    public void configure(WebSecurity webSecurity) throws Exception {
-        webSecurity.ignoring().antMatchers(HttpMethod.POST, authenticationPath)
-                .antMatchers(HttpMethod.OPTIONS, "/**")
-                .and().ignoring()
-                .antMatchers(HttpMethod.GET);//.antMatchers(HttpMethod.GET)
     }
 }
 
@@ -152,3 +173,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sameOrigin().cacheControl();
     }
 */
+
+/*// Set permissions on endpoints
+        httpSecurity.authorizeRequests()
+                .antMatchers(ADMIN_MATCHER).access("hasRole('ADMIN')")
+                .antMatchers(CUSTOMER_MATCHER).access("hasRole('CUSTOMER')")
+                // Our private endpoints
+                .anyRequest().authenticated();*/
